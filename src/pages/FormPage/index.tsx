@@ -1,9 +1,11 @@
 import { Button, Container, Typography, useTheme } from "@mui/material";
-import React, { FormEventHandler, useState } from "react";
+import React, { FormEventHandler, useEffect, useMemo, useState } from "react";
 import { ChangeEventHandler } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import RadioForm from "../../components/RadioForm";
 import TextFieldForm from "../../components/TextField";
+import { submit_form } from "../../services/redux/actions/form";
 export interface FormPageProps {}
 
 export interface Field {
@@ -23,10 +25,17 @@ export interface RootObject {
 export default function FormPage() {
   const { palette } = useTheme();
   let { name } = useParams();
-  const TotalData = require("../../api/jsonformatter.json") as RootObject[];
-  const FormData = TotalData.find((item) => item.form === name);
-  const [Input, setInput] = useState<{ [key: string]: any }>({});
+  const TotalData = useMemo(
+    () => require("../../api/jsonformatter.json") as RootObject[],
+    []
+  );
+  const FormData = useMemo(
+    () => TotalData.find((item) => item.form === name),
+    [TotalData, name]
+  );
 
+  const [Input, setInput] = useState<{ [key: string]: any }>({});
+  const dispatch = useDispatch();
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setInput((value) => ({
       ...value,
@@ -45,8 +54,9 @@ export default function FormPage() {
           alert("Form submit successful!");
         })
         .catch(() => {
-          alert("Form submit faild!");
-        });
+          alert("Form submit failed!");
+        })
+        .finally(() => dispatch(submit_form(Input)));
     }
   };
 
@@ -62,7 +72,7 @@ export default function FormPage() {
           p: 4,
           my: 5,
           div: { mb: 4 },
-          // border: "1px solid " + palette.neutral[900],
+          border: "1px solid " + palette.neutral[900],
         }}
       >
         <Typography
@@ -100,7 +110,7 @@ export default function FormPage() {
             </Typography>
           );
         })}
-        <Button type="submit">
+        <Button type="submit" variant="contained">
           <Typography component="span" variant="body1">
             ثبت
           </Typography>

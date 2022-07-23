@@ -1,16 +1,25 @@
-import { Box, Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <Box>
+    <Container
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        mt: 4,
+        a: { textDecoration: "none" },
+      }}
+    >
       <Link to="/form/users">
-        <Button>User Form</Button>
+        <Button variant="outlined">User Form</Button>
       </Link>
       <Link to="/form/product">
-        <Button>Product Form</Button>
+        <Button variant="outlined" sx={{ ml: 3 }}>
+          Product Form
+        </Button>
       </Link>
-    </Box>
+    </Container>
   );
 }

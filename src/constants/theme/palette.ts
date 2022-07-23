@@ -37,7 +37,7 @@ declare module "@mui/material/styles" {
 }
 
 // define const darkPalette:PaletteOptions
-export const lightPalette: PaletteOptions = {
+export const palette: PaletteOptions = {
   mode: "light",
   neutral: {
     "900": "#000000",
@@ -55,25 +55,5 @@ export const lightPalette: PaletteOptions = {
   text: {
     primary: "#000000",
     secondary: "#262626",
-  },
-};
-export const darkPalette: PaletteOptions = {
-  mode: "dark",
-  neutral: {
-    "0": "#000000",
-    "50": "#262626",
-    "100": "#434343",
-    "200": "#555555",
-    "300": "#7B7B7B",
-    "400": "#9D9D9D",
-    "500": "#C4C4C4",
-    "600": "#D9D9D9",
-    "700": "#E9E9E9",
-    "800": "#F5F5F5",
-    "900": "#FFFFFF",
-  },
-  text: {
-    primary: "#FFFFFF",
-    secondary: "#F5F5F5",
   },
 };
